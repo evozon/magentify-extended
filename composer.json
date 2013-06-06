@@ -28,8 +28,12 @@
     "extra": {
         "map": [
             [
-                "deploy", "deploy",
-                "app/etc/install.xml.sample", "app/etc/install.xml.sample"
+                "deploy",
+                "deploy"
+            ],
+            [
+                "app/etc/install.xml.sample",
+                "app/etc/install.xml.sample"
             ]
         ]
     },
@@ -41,5 +45,5 @@
             "type": "vcs",
             "url": "git@evogit.evozon.com:evomage/capistrano.git"
         }
-    ],
+    ]
 }
