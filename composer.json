@@ -9,7 +9,6 @@
     ],
     "homepage": "https://evogit.evozon.com/evomage/capistrano",
     "license": "proprietary",
-    "minimum-stability": "dev",
     "type": "magento-module",
     "authors": [
         {
@@ -23,18 +22,8 @@
         "source": "https://evogit.evozon.com/evomage/capistrano"
     },
     "require": {
-        "evozon/mage-composer-installer": "*"
+        "magento-hackathon/magento-composer-installer": "*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@evogit.evozon.com:evomage/capistrano.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@evogit.evozon.com:evomage/sphinxsearch.git"
-        }
-    ],
     "extra": {
         "map": [
             [
