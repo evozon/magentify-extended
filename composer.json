@@ -1,5 +1,5 @@
 {
-    "name": "evozon/capistrano",
+    "name": "evomage/capistrano",
     "description": "Deploy Magento with Capistrano",
     "keywords": [
         "magento",
