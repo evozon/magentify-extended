@@ -1,0 +1,12 @@
+source "http://rubygems.org"
+
+gem "capistrano"
+gem "capistrano-multiconfig"
+gem "magentify"
+
+gem "capistrano_colors"
+gem "capistrano-uptodate"
+gem "capistrano-patch"
+gem "capistrano-calendar"
+
+gem "deep_merge", :require => 'deep_merge/rails_compat'
