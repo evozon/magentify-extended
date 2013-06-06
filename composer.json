@@ -24,16 +24,6 @@
     "require": {
         "evozon/mage-composer-installer": "*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@evogit.evozon.com:evomage/capistrano.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@evogit.evozon.com:evomage/composer-mage-module-installer.git"
-        }
-    ],
     "extra": {
         "map": [
             [
