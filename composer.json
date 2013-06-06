@@ -1,0 +1,39 @@
+{
+    "name": "evozon/capistrano",
+    "description": "Deploy Magento with Capistrano",
+    "keywords": [
+        "magento",
+        "capistrano",
+        "magentify",
+        "deploy"
+    ],
+    "homepage": "https://evogit.evozon.com/evomage/capistrano",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "type": "magento-module",
+    "authors": [
+        {
+            "name": "Constantin Bejenaru",
+            "email": "constantin.bejenaru@evozon.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "constantin.bejenaru@evozon.com",
+        "source": "https://evogit.evozon.com/evomage/capistrano"
+    },
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "extra": {
+        "map": [
+            [
+                "deploy",
+                "deploy"
+            ]
+        ]
+    },
+    "suggest": {
+        "n98/magerun": "Tools for managing Magento projects and installations"
+    }
+}
