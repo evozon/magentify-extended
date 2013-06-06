@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magento Installation settings
+ *
+ * Make sure you rename the file install.xml.sample to install.xml
+ * and place it in the shared capistrano folder under /app/etc/ in order to
+ * install and configure Magento.
+ *
+ * @file        #{shared_path}/app/etc/install.xml
+ * @category    Evomage
+ * @package     Evomage_Capistrano
+ * @copyright   Copyright (c) 2013 Evozon Systems (http://www.evozon.com/)
+ * @author      Constantin Bejenaru <constantin.bejenaru@evozon.com>
+ */
+-->
+<config>
+    <global>
+        <crypt>
+            <key><![CDATA[]]></key>
+        </crypt>
+        <resources>
+            <db>
+                <table_prefix><![CDATA[]]></table_prefix>
+            </db>
+            <default_setup>
+                <connection>
+                    <host><![CDATA[localhost]]></host>
+                    <username><![CDATA[username]]></username>
+                    <password><![CDATA[password]]></password>
+                    <dbname><![CDATA[dbname]]></dbname>
+                    <model><![CDATA[mysql4]]></model>
+                </connection>
+            </default_setup>
+        </resources>
+        <general>
+            <locale>
+                <code>en_US</code>
+                <timezone>America/Los_Angeles</timezone>
+            </locale>
+            <currency>
+                <default>USD</default>
+            </currency>
+        </general>
+        <web>
+            <base_url>
+                <unsecure><![CDATA[http://localhost/project/current/]]></unsecure>
+                <secure><![CDATA[http://localhost/project/current/]]></secure>
+            </base_url>
+            <secure>
+                <use_in_frontend>no</use_in_frontend>
+                <use_in_adminhtml>no</use_in_adminhtml>
+            </secure>
+            <seo>
+                <use_rewrites>yes</use_rewrites>
+            </seo>
+        </web>
+        <session_save><![CDATA[files]]></session_save>
+        <admin>
+            <system_account>
+                <lastname><![CDATA[Lastname]]></lastname>
+                <firstname><![CDATA[Firstname]]></firstname>
+                <email><![CDATA[noreply@evozon.com]]></email>
+                <username><![CDATA[admin]]></username>
+                <password><![CDATA[admin123]]></password>
+            </system_account>
+            <routers>
+                <adminhtml>
+                    <args>
+                        <frontName><![CDATA[admin]]></frontName>
+                    </args>
+                </adminhtml>
+            </routers>
+        </admin>
+    </global>
+</config>

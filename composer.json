@@ -28,8 +28,8 @@
     "extra": {
         "map": [
             [
-                "deploy",
-                "deploy"
+                "deploy", "deploy",
+                "app/etc/install.xml.sample", "app/etc/install.xml.sample"
             ]
         ]
     },
