@@ -25,6 +25,16 @@
     "require": {
         "evozon/mage-composer-installer": "*"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@evogit.evozon.com:evomage/capistrano.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@evogit.evozon.com:evomage/sphinxsearch.git"
+        }
+    ],
     "extra": {
         "map": [
             [
@@ -39,11 +49,5 @@
     },
     "suggest": {
         "n98/magerun": "Tools for managing Magento projects and installations"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@evogit.evozon.com:evomage/capistrano.git"
-        }
-    ]
+    }
 }
