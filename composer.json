@@ -23,7 +23,7 @@
         "source": "https://evogit.evozon.com/evomage/capistrano"
     },
     "require": {
-        "magento-hackathon/magento-composer-installer": "*"
+        "evozon/mage-composer-installer": "*"
     },
     "extra": {
         "map": [
@@ -35,5 +35,11 @@
     },
     "suggest": {
         "n98/magerun": "Tools for managing Magento projects and installations"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@evogit.evozon.com:evomage/capistrano.git"
+        }
+    ],
 }
