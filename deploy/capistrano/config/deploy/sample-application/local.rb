@@ -10,3 +10,6 @@ set :deploy_to, "/var/www/sample-application"
 
 # Branch to deploy
 set :branch, "develop"
+
+# SSH
+set :user, "username"
