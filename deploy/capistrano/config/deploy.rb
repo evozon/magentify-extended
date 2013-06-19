@@ -13,7 +13,6 @@
 # @copyright  Copyright (c) 2013 Evozon Systems (http://www.evozon.com)
 
 require 'rexml/document'
-require 'deep_merge/rails_compat'
 
 set :scm,         :git
 set :deploy_via,  :export
@@ -37,6 +36,7 @@ set :default_stage, 'local'
 
 set(:stage)     { config_name.split(':').last }
 set(:rails_env) { stage }
+set(:rake)      { use_bundle ? "bundle exec rake" : "rake" }
 
 # SSH
 default_run_options[:pty] = true
@@ -44,6 +44,9 @@ set :use_sudo, false
 
 # How many releases to keep
 set :keep_releases,  3
+
+# Rewrite shared_children, we don't need the Rails folder structure
+set :shared_children, %w()
 
 # Filesystem
 set :app_symlinks,      ['/media', '/var', '/sitemaps', '/staging']
@@ -93,6 +96,14 @@ namespace :deploy do
 
     run "#{try_sudo} mkdir -p #{dirs.join(' ')}"
     run "#{try_sudo} chmod g+w #{dirs.join(' ')}" if fetch(:group_writable, true)
+  end
+
+  desc <<-DESC
+    Currently there is nothing special here, just rewriting the default task
+    which assumes a Rails project is deployed but we are Magento powered.
+  DESC
+  task :finalize_update, :except => { :no_release => true } do
+
   end
 
   desc <<-DESC
@@ -152,9 +163,26 @@ namespace :deploy do
     info << "Release path: #{release_path}"
     info << "Deploy date: $(date) $(ls -1 | wc -l)"
 
-    run "cat /dev/null > #{current_path}/RELEASE"
+    run "cat /dev/null > #{release_path}/RELEASE"
     info.map do |nfo|
-          run "echo \"#{nfo}\" >> #{current_path}/RELEASE"
+          run "echo \"#{nfo}\" >> #{release_path}/RELEASE"
+    end
+  end
+
+  namespace :web do
+    desc <<-DESC
+      Disable the Magento install by creating the maintenance.flag in the web root.
+    DESC
+    task :disable, :roles => :web, :except => { :no_release => true } do
+      on_rollback { run "rm -f #{current_path}/maintenance.flag" }
+      mage::disable
+    end
+
+    desc <<-DESC
+      Enable the Magento stores by removing the maintenance.flag in the web root.
+    DESC
+    task :enable, :roles => :web, :except => { :no_release => true } do
+      mage::enable
     end
   end
 end
@@ -174,7 +202,7 @@ namespace :mage do
 
   end
   desc <<-DESC
-    Flush the Magento Cache
+    Flush the Magento Cache - works also with Memcached/Redis/etc.
   DESC
   task :cc, :roles => [:web, :app] do
     magerun
@@ -182,7 +210,7 @@ namespace :mage do
   end
 
   desc <<-DESC
-    Clear the Magento Cache but only from filesystem
+    Flush the Magento Cache - filesystem only
   DESC
   task :cc_filesystem, :roles => [:web, :app] do
     run "if [ -d #{shared_path}/var/cache/ ]; then #{try_sudo} rm -rfv #{shared_path}/var/cache/*; fi"
@@ -192,10 +220,12 @@ namespace :mage do
   desc <<-DESC
     Install Magento with settings and credentials located in the following file:
       - install.xml (custom for Capistrano task)
-    The XML files need to be added before running this command.
-    Location for the file: #{shared_path}/app/etc/
+    The XML file needs to be added before running this command.
 
-    Note: You have to run "deploy:setup" and "deploy" tasks before installing Magento
+    Location: {shared_path}/app/etc/
+    Sample:   {current_path}/app/etc/install.xml.sample
+    Note:     You have to run "deploy:setup" and "deploy"
+                tasks before installing Magento
 
     @todo: If you know Ruby very well, or know someone who does,
            please refactor this task :))
@@ -204,8 +234,15 @@ namespace :mage do
     # settings hash
     settings = {}
 
+    filename = "#{shared_path}/app/etc/install.xml"
+
+    exists = capture("if [ -e #{filename} ]; then echo 'true'; fi").strip
+    raise Error, "Install file #{filename} does not exist!" unless exists == 'true'
+
     # Get settings for install
-    installXml = REXML::Document.new File.new("#{shared_path}/app/etc/install.xml")
+    file = capture "cat #{filename}"
+    installXml = REXML::Document.new file
+
     install = [
       {
         :element => 'locale',
@@ -334,7 +371,7 @@ namespace :mage do
 A new one will be created. Are you sure you want to continue? [yes/no] ')
 
     if rmLocalXml === "yes"
-      logger.info 'Installing Magento...'
+      logger.info 'Installing Magento... grab a coffee and stand by'
 
       run "if [ -f #{current_path}/app/etc/local.xml ]; then #{try_sudo} rm -rfv #{current_path}/app/etc/local.xml; fi"
       run "if [ -f #{shared_path}/app/etc/local.xml ]; then #{try_sudo} rm -rfv #{shared_path}/app/etc/local.xml; fi"
@@ -362,14 +399,17 @@ A new one will be created. Are you sure you want to continue? [yes/no] ')
         "--admin_lastname \"#{settings["admin_lastname"]}\"",
         "--admin_firstname \"#{settings["admin_firstname"]}\"",
         "--admin_email \"#{settings["admin_email"]}\"",
-        "--encryption_key \"#{settings["key"]}\"
-"      ]
+        "--encryption_key \"#{settings["key"]}\""
+      ]
 
       run "php #{current_path}/install.php -- " + args.join(" ")
 
+      # Make the local.xml switch
       run "#{try_sudo} cp -f #{current_path}/app/etc/local.xml #{shared_path}/app/etc/local.xml"
       run "#{try_sudo} rm -f #{current_path}/app/etc/local.xml"
       run "#{try_sudo} ln -s #{shared_path}/app/etc/local.xml #{current_path}/app/etc/local.xml"
+
+      logger.info "Magento is now installed, you can check it under #{settings["url"]}"
     end
   end
 end
@@ -382,9 +422,9 @@ after 'mage:setup', 'mage:cc_filesystem'
 after 'mage:install', 'mage:magerun'
 
 # Hook deploy:finalize_updates
-before 'deploy:finalize_update', 'deploy:fix_permissions'
-after 'deploy:finalize_update',  'deploy:log_release'
-after 'deploy:finalize_update',  'mage:cc'
+before 'deploy:finalize_update',  'deploy:fix_permissions'
+after 'deploy:finalize_update',   'deploy:log_release'
+after 'deploy:restart',           'mage:cc'
 
 # Remove old releases
 after :deploy, 'deploy:cleanup'
