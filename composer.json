@@ -22,7 +22,7 @@
         "source": "https://evogit.evozon.com/evomage/capistrano"
     },
     "require": {
-        "evozon/mage-composer-installer": "*"
+        "magento-hackathon/magento-composer-installer": "*"
     },
     "extra": {
         "map": [
