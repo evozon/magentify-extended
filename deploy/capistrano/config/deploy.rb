@@ -51,7 +51,7 @@ set :shared_children, %w()
 # Filesystem
 set :app_symlinks,      ['/media', '/var', '/sitemaps', '/staging']
 set :app_shared_dirs,   ['/app/etc', '/sitemaps', '/media', '/var', '/staging']
-set :app_shared_files,  ['/app/etc/local.xml']
+set :app_shared_files,  ['/app/etc/local.xml', '/app/etc/cache.xml']
 
 # Set permissions
 set :permissions, {
@@ -422,7 +422,7 @@ after 'mage:setup', 'mage:cc_filesystem'
 after 'mage:install', 'mage:magerun'
 
 # Hook deploy:finalize_updates
-before 'deploy:finalize_update',  'deploy:fix_permissions'
+#before 'deploy:finalize_update',  'deploy:fix_permissions'
 after 'deploy:finalize_update',   'deploy:log_release'
 after 'deploy:restart',           'mage:cc'
 

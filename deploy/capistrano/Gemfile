@@ -8,5 +8,3 @@ gem "capistrano_colors"
 gem "capistrano-uptodate"
 gem "capistrano-patch"
 gem "capistrano-calendar"
-
-gem "deep_merge", :require => 'deep_merge/rails_compat'

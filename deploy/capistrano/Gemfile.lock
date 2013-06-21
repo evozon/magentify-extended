@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    capistrano (2.15.2)
+    capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -18,15 +18,14 @@ GEM
     capistrano-uptodate (0.0.2)
       capistrano (>= 2.5.5)
     capistrano_colors (0.5.5)
-    deep_merge (1.0.0)
     gdata_19 (1.1.5)
-    highline (1.6.18)
-    json (1.7.7)
+    highline (1.6.19)
+    json (1.8.0)
     magentify (0.0.5)
       capistrano (>= 2.5.10)
-    net-scp (1.1.0)
+    net-scp (1.1.1)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.1)
+    net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
@@ -42,5 +41,4 @@ DEPENDENCIES
   capistrano-patch
   capistrano-uptodate
   capistrano_colors
-  deep_merge
   magentify
