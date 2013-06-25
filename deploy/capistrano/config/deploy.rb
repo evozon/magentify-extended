@@ -38,6 +38,9 @@ set(:stage)     { config_name.split(':').last }
 set(:rails_env) { stage }
 set(:rake)      { use_bundle ? "bundle exec rake" : "rake" }
 
+# Git
+set :git_enable_submodules, true
+
 # SSH
 default_run_options[:pty] = true
 set :use_sudo, false
