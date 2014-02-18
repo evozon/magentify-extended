@@ -31,7 +31,7 @@ First you need to add the deploy code and Capistrano recipes to your Magento pro
             },
             {
                 "type": "vcs",
-                "url":  "git@evogit.evozon.com:evomage/capistrano.git"
+                "url":  "git@github.com:evozon/magentify-extended.git"
             }
         ],
         "extra": {
