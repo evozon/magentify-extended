@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "capistrano"
+gem "capistrano", "~> 2.15.5"
 gem "capistrano-multiconfig"
 gem "magentify"
 
