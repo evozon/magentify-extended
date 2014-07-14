@@ -10,7 +10,7 @@
 # https://github.com/railsware/capistrano-multiconfig/README.md
 #
 # @author     Constantin Bejenaru <constantin.bejenaru@evozon.com>
-# @copyright  Copyright (c) 2013 Evozon Systems (http://www.evozon.com)
+# @copyright  Copyright (c) Evozon Systems (http://www.evozon.com)
 
 require 'rexml/document'
 
@@ -39,7 +39,7 @@ set(:rails_env) { stage }
 set(:rake)      { use_bundle ? "bundle exec rake" : "rake" }
 
 # Git
-set :git_enable_submodules, true
+set :git_enable_submodules, false
 
 # SSH
 default_run_options[:pty] = true
@@ -54,7 +54,7 @@ set :shared_children, %w()
 # Filesystem
 set :app_symlinks,      ['/media', '/var', '/sitemaps', '/staging']
 set :app_shared_dirs,   ['/app/etc', '/sitemaps', '/media', '/var', '/staging']
-set :app_shared_files,  ['/app/etc/local.xml', '/app/etc/cache.xml']
+set :app_shared_files,  ['/app/etc/local.xml']
 
 # Set permissions
 set :permissions, {

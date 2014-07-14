@@ -64,7 +64,7 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
-# PhPStorm
+# PHPStorm
 .idea/
 
 # SublimeText project files

@@ -1,5 +1,5 @@
 {
-    "name": "evomage/capistrano",
+    "name": "evozon/magentify-extended",
     "description": "Deploy Magento with Capistrano",
     "keywords": [
         "magento",
@@ -7,8 +7,8 @@
         "magentify",
         "deploy"
     ],
-    "homepage": "https://evogit.evozon.com/evomage/capistrano",
-    "license": "proprietary",
+    "homepage": "https://github.com/evozon/magentify-extended",
+    "license": "MIT",
     "type": "magento-module",
     "authors": [
         {
@@ -18,8 +18,9 @@
         }
     ],
     "support": {
-        "email": "constantin.bejenaru@evozon.com",
-        "source": "https://evogit.evozon.com/evomage/capistrano"
+        "issues": "https://github.com/evozon/magentify-extended/issues",
+        "wiki": "https://github.com/evozon/magentify-extended/wiki",
+        "source": "https://github.com/evozon/magentify-extended"
     },
     "require": {
         "magento-hackathon/magento-composer-installer": "*"
