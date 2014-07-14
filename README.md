@@ -26,7 +26,7 @@ Install Ruby, Git and download Composer on your own. Google for howto's dependin
 
 ### Step 2
 
-Download skeleton to your Magento project via Composer. For this, add the following to your **composer.json**:
+Download skeleton to your Magento project via Composer. For this, add the following to your ```composer.json```:
 
 ```json
 {
